@@ -11,6 +11,7 @@ module "cloudtrail_label" {
 ## Cloudtrail bucket
 module "cloudtrail_bucket" {
   source                  = "terraform-aws-modules/s3-bucket/aws"
+  version                 = "v2.9.0"
   bucket                  = module.cloudtrail_label.id
   acl                     = "private"
   block_public_acls       = true
@@ -241,7 +242,7 @@ data "aws_iam_policy_document" "cloudtrail_kms_policy" {
 ## Cloudtrail
 resource "aws_cloudtrail" "cloudtrail" {
   name                          = module.cloudtrail_label.id
-  s3_bucket_name                = module.cloudtrail_bucket.this_s3_bucket_id
+  s3_bucket_name                = module.cloudtrail_bucket.s3_bucket_id
   include_global_service_events = true
   is_multi_region_trail         = true
   enable_logging                = var.enable_logging
