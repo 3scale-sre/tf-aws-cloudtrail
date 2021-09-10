@@ -22,9 +22,24 @@ module "cloudtrail_bucket" {
   attach_policy           = true
   policy                  = data.aws_iam_policy_document.cloudtrail_bucket_policy.json
   tags                    = module.cloudtrail_label.tags
+
   versioning = {
     enabled = true
   }
+
+  lifecycle_rule = [
+    {
+      id      = "One year retention"
+      enabled = true
+      expiration = {
+        days = 360
+      }
+      noncurrent_version_expiration = {
+        days = 7
+      }
+    }
+  ]
+
 }
 
 data "aws_iam_policy_document" "cloudtrail_bucket_policy" {
