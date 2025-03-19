@@ -10,7 +10,7 @@ jobs:
     container: quay.io/3scale/soyuz:v0.3.0-ci
     steps:
 
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Run docs tests
       run: make test-docs
