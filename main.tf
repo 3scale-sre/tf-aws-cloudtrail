@@ -31,6 +31,9 @@ module "cloudtrail_bucket" {
     {
       id      = "One year retention"
       enabled = true
+      filter = {
+        prefix = ""
+      }
       expiration = {
         days = 360
       }
