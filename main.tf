@@ -11,7 +11,7 @@ module "cloudtrail_label" {
 ## Cloudtrail bucket
 module "cloudtrail_bucket" {
   source                  = "terraform-aws-modules/s3-bucket/aws"
-  version                 = "v3.8.2"
+  version                 = "4.8.0"
   bucket                  = module.cloudtrail_label.id
   acl                     = "private"
   block_public_acls       = true
@@ -37,9 +37,12 @@ module "cloudtrail_bucket" {
       noncurrent_version_expiration = {
         days = 7
       }
+      expiration = {
+        expired_object_delete_marker = true
+      }
+      abort_incomplete_multipart_upload_days = 3
     }
   ]
-
 }
 
 data "aws_iam_policy_document" "cloudtrail_bucket_policy" {
